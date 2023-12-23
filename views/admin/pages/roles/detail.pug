@@ -1,0 +1,16 @@
+extends ../../layouts/default.pug
+
+block main
+  if (item.title)
+    h1(class="mb-4") #{item.title}
+
+  if (item.description)
+    div(class="mb-4") !{item.description}
+
+  if(role.permissions.includes("roles_edit"))
+    a(
+      href=`${prefixAdmin}/roles/edit/${item.id}`
+      class="btn btn-warning"
+    ) Chỉnh sửa
+
+  script(src="/admin/js/product.js")

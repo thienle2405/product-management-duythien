@@ -1,0 +1,59 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title 404 Page Not Found
+    style.
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+      }
+      .container {
+        max-width: 600px;
+        padding: 20px;
+      }
+      .container img {
+        max-width: 100%;
+        height: auto;
+      }
+      h1 {
+        color: #ff6347; /* Vivid tomato color */
+        margin: 20px 0;
+      }
+      p {
+        color: #333;
+        margin-bottom: 30px;
+      }
+      button {
+        text-decoration: none;
+        color: #007bff;
+        border: 1px solid #007bff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+      }
+      button:hover {
+        background-color: #007bff;
+        color: white;
+      }
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .container {
+          width: 90%;
+          padding: 10px;
+        }
+      }
+  body
+    .container
+      img(src="https://catscanman.net/wp-content/uploads/2023/02/meme-dep-1.jpg", alt="Error 404")
+      h1 Oops! Page not found.
+      p Sai đường dẫn rồi!!! Tính hack web tao hay gì!
+      button(onclick="history.back()") Back

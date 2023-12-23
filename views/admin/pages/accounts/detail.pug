@@ -1,0 +1,37 @@
+extends ../../layouts/default.pug
+
+block main
+  if (account.avatar)
+    div(class="mb-4")
+      img(
+        src=account.avatar
+        style="width: 100px"
+      )
+
+  if (account.fullName)
+    h1(class="mb-4") #{account.fullName}
+
+  if (account.email)
+    div(class="mb-4") #{account.email}
+
+  if (account.phone)
+    div(class="mb-4") #{account.phone}
+
+  if (account.role)
+    h2(class="mb-4") #{account.role.description}
+
+  if (account.status)
+    div(class="mb-4")
+      span Trạng thái:
+      if (account.status === "active")
+        span(class="badge badge-success") Hoạt động
+      else
+        span(class="badge badge-danger") Dừng hoạt động
+
+  if(role.permissions.includes("accounts_edit"))
+    a(
+      href=`${prefixAdmin}/accounts/edit/${account.id}`
+      class="btn btn-warning"
+    ) Chỉnh sửa
+
+  script(src="/admin/js/product.js")

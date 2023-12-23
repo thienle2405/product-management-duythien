@@ -3,6 +3,7 @@ const buttonChangeStatus = document.querySelectorAll("[button-change-status]");
 
 if (buttonChangeStatus.length > 0) { 
     const formChangeStatus = document.querySelector("#form-change-status");
+    console.log(formChangeStatus);
     const path = formChangeStatus.getAttribute("data-path");
     console.log(path);
 

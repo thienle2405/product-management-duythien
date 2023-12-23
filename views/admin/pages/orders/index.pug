@@ -1,0 +1,97 @@
+extends ../../layouts/default.pug
+include ../../mixins/filterStatus.pug
+include ../../mixins/search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
+include ../../mixins/sort.pug
+include ../../mixins/moment.pug
+
+block main
+  if(role.permissions.includes("products_view"))
+    +alert-success(5000)
+    h1 Danh sách đơn hàng
+
+
+    .card.mb-3
+      .card-header Bộ lọc và Tìm kiếm
+      .card-body
+        .row
+          .col-6
+            +filterStatus(filterOrder)
+          .col-6
+            form(id="form-search")
+              .input-group
+                input(type="text" placeholder="Nhập số điện thoại đơn hàng" name="keyword" class="form-control" value=keyword)
+                .input-group-append
+                button(class="btn btn-success" type="submit") Tìm
+
+
+    .card.mb-3
+      .card-header Danh sách
+        .card-body
+          .row
+            .col-8
+              if(role.permissions.includes("products_edit"))
+                form(action=`${prefixAdmin}/orders/change-multi?_method=PATCH` method="POST" form-change-multi) 
+                  .d-flex.align-items-start
+                    .form-group
+                        select(name="type" class="form-control")
+                            option(disabled selected) -- Chọn hành động --
+                            option(value="pending") Pending
+                            option(value="confirmed") Confirmed
+                            option(value="shipping") Shipping
+                            option(value="delivered") Delivered
+                            option(value="cancelled") Cancelled
+                            option(value="refunded") Refunded
+                            option(value="delete-all") Deleted
+                    .form-group
+                        input(type="text" name="ids" value="" class="form-control d-none")
+                    button(type="submit" class="btn btn-primary") Áp dụng
+
+    .card.mb-3
+      .card-header
+        .card-body
+
+        table(class="table table-hover table-sm" checkbox-multi)
+          thead
+            tr
+              th
+                input(type="checkbox" name="checkall")
+              th STT
+              th Người đặt hàng
+              th Số điện thoại
+              th Địa chỉ
+              th Trạng thái
+              th Đơn hàng
+              th Tổng tiền
+              th Người cập nhật
+          tbody
+            each item, index in records
+              tr
+                td
+                  input(
+                    type="checkbox"
+                    name="id"
+                    value=item.id
+                  )
+                td #{index+1} 
+                td #{item.userInfo.fullName}
+                td #{item.userInfo.phone}
+                td #{item.userInfo.address}
+                td 
+                  div(class="badge badge-success") #{item.status}
+                td #{item.nameOrder}
+                td #{item.totalPrice}
+                td
+                  - const updatedBy = item.updatedBy.slice(-1)[0]
+                  if (updatedBy)
+                    p #{updatedBy.accountFullName}
+
+    form(action="" method="POST" id="form-delete-item" data-path=`${prefixAdmin}/orders/delete`)
+
+    script(src="/admin/js/product.js")
+
+                  
+                    
+
